@@ -2,6 +2,7 @@
 
 #include <data_structures.h>
 #include <ranges>
+#include <span>
 
 namespace data {
     constexpr size_t size_effects = std::size(raw::effects);
@@ -17,7 +18,7 @@ namespace data {
     constexpr size_t get_max_tx_range() {
         size_t max = 0;
         for (size_t i = 0; i < size_txs; i++) {
-            auto range = raw::rules[i][1];
+            size_t range = raw::rules[i][1];
             max = max > range ? max : range;
         }
         return max;
@@ -38,7 +39,8 @@ namespace data {
     constexpr size_t max_rank     = rank_bounds().second;
     constexpr size_t size_ranks   = max_rank - min_rank + 1;
 
-    constexpr auto rank_names = Constexpr_Span(&raw::rank_names[min_rank], size_ranks);
+    constexpr auto rank_names = Constexpr_Span<const char*>{&raw::rank_names[min_rank], size_ranks};
+    // constexpr std::span<const char*>(&raw::rank_names[min_rank], size_ranks);
 }
 
 template<typename T>

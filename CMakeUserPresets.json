@@ -1,0 +1,18 @@
+{
+    "version": 3,
+    "configurePresets": [
+      {
+        "name": "macos-clang",
+        "hidden": true,
+        "generator": "Ninja"
+      },
+      {
+        "name": "macos-debug",
+        "inherits": ["macos-clang", "debug"]
+      },
+      {
+        "name": "macos-release",
+        "inherits": ["macos-clang", "release"]
+      }
+    ]
+}
