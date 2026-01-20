@@ -1,0 +1,11 @@
+build/
+tree_cache/
+data_scraping/
+!data_scraping/data_borrower.py
+
+CMakeUserPresets.json
+.vscode/
+.vs/
+
+.DS_Store
+local/
