@@ -50,7 +50,7 @@ There are a lot of ways to improve the tool and code base. Here's what I will pr
 
 ## Features
 
-1. Add mushrooms. <br> I haven't played since the mushrooms update but it should be trivial too add them as a drug type.
+1. Add mushrooms. <br> I haven't played since the mushrooms update but it should be trivial to add them as a drug type.
 2. Include quality and other sales multiplier to the profit calculation. <br> Right now the profit assumes baseline sell value which is nearly never the actual sell value. Being able to toggle multipliers will give the user a better idea of their profit margins and the optimal mixes.
 3. Select/Clear All button for the filters. 
 4. Clear cache option. 
