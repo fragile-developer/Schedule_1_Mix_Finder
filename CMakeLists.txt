@@ -13,7 +13,22 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Default build type (Debug if none given)
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the build type" FORCE)
+set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the build type" FORCE)
+endif()
+
+message (STATUS "Compiler path: ${CMAKE_CXX_COMPILER}")
+
+# statically link runtime for Windows binary
+if (WIN32)
+    if (MSVC)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY
+            "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+            CACHE STRING "" FORCE)
+        set(ABSL_MSVC_STATIC_RUNTIME ON CACHE BOOL "" FORCE)
+    else()
+        set(CMAKE_CXX_FLAGS        "${CMAKE_CXX_FLAGS}        -static -static-libgcc -static-libstdc++")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
+    endif()
 endif()
 
 # Compiler warnings
