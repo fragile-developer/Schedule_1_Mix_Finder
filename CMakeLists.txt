@@ -1,6 +1,24 @@
 cmake_minimum_required(VERSION 3.16) # safer default than 3.10
 project(MixFinder LANGUAGES CXX)
 
+message (STATUS "Compiler path: ${CMAKE_CXX_COMPILER}")
+message (STATUS "Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
+
+# statically link runtime for Windows binary
+if (WIN32)
+    if (MSVC)
+        message(STATUS "Static linking for MSVC")
+        set(CMAKE_MSVC_RUNTIME_LIBRARY
+            "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+            CACHE STRING "" FORCE)
+        set(ABSL_MSVC_STATIC_RUNTIME ON CACHE BOOL "" FORCE)
+    else()
+        message(STATUS "Static linking for MinGW")
+        set(CMAKE_CXX_FLAGS        "${CMAKE_CXX_FLAGS}        -static -static-libgcc -static-libstdc++")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
+    endif()
+endif()
+
 # ---------------------------------------------------------
 # Configurable options
 # ---------------------------------------------------------
@@ -14,21 +32,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Default build type (Debug if none given)
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
-endif()
-
-message (STATUS "Compiler path: ${CMAKE_CXX_COMPILER}")
-
-# statically link runtime for Windows binary
-if (WIN32)
-    if (MSVC)
-        set(CMAKE_MSVC_RUNTIME_LIBRARY
-            "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-            CACHE STRING "" FORCE)
-        set(ABSL_MSVC_STATIC_RUNTIME ON CACHE BOOL "" FORCE)
-    else()
-        set(CMAKE_CXX_FLAGS        "${CMAKE_CXX_FLAGS}        -static -static-libgcc -static-libstdc++")
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
-    endif()
 endif()
 
 # ---------------------------------------------------------

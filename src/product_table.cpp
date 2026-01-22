@@ -40,7 +40,7 @@ Product_Tree tree_from_query(Query_State& query_state) {
 }
 
 ProductTableBase::ProductTableBase(Query_State& query_state)
-    : query_state_(query_state), tree_(tree_from_query(query_state)) {
+    : query_state_(query_state), tree_(tree_from_query(query_state)), selected_node_(nullptr) {
         old_state_ = query_state_;
 
         // sort buttons
