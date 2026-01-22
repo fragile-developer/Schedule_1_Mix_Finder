@@ -13,7 +13,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Default build type (Debug if none given)
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the build type" FORCE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type" FORCE)
 endif()
 
 message (STATUS "Compiler path: ${CMAKE_CXX_COMPILER}")
@@ -29,13 +29,6 @@ if (WIN32)
         set(CMAKE_CXX_FLAGS        "${CMAKE_CXX_FLAGS}        -static -static-libgcc -static-libstdc++")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
     endif()
-endif()
-
-# Compiler warnings
-if (MSVC)
-    add_compile_options(/W4 /permissive-)
-else()
-    add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # ---------------------------------------------------------
@@ -68,6 +61,13 @@ FetchContent_MakeAvailable(abseil)
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
 
 add_executable(${EXE_NAME} ${SOURCES})
+
+# Compiler warnings
+if (MSVC)
+    add_compile_options(${EXE_NAME} PRIVATE /W4 /permissive-)
+else()
+    add_compile_options(${EXE_NAME} PRIVATE -Wall -Wextra -Wpedantic)
+endif()
 
 target_include_directories(${EXE_NAME}
     PRIVATE
