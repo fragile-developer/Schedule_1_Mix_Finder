@@ -2,7 +2,6 @@
 
 #include <data_structures.h>
 #include <ranges>
-#include <span>
 
 namespace data {
     constexpr size_t size_effects = std::size(raw::effects);

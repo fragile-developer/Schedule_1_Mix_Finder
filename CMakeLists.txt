@@ -78,7 +78,7 @@ target_include_directories(${EXE_NAME}
 )
 
 target_link_libraries(${EXE_NAME}
-    PRIVATE
+    PRIVATE SYSTEM
         absl::flat_hash_map
         ftxui::component
         # Boost::container

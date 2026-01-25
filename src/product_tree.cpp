@@ -30,7 +30,7 @@ struct Cache_Node {
     };
 
     Product_Node to_product_node() const{
-        Product_Node node = {0};
+        Product_Node node{};
         node.previous_node          = prev_node;
         node.last_ingredient        = last_ingredient;
         node.ingredient_count       = ing_count;
