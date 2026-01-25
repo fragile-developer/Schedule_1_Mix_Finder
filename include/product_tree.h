@@ -4,7 +4,7 @@
 #include "enumerate.h"
 #include <filesystem>
 
-#include <absl/container/flat_hash_map.h>
+#include <ankerl/unordered_dense.h>
 
 struct Product_Node;
 using Product_List = Constexpr_Span<Product_Node>;
@@ -12,6 +12,8 @@ using Product_List = Constexpr_Span<Product_Node>;
 using entry     = struct Entry{uint32_t fastest_ind; uint32_t cheapest_ind; uint16_t cheapest_cost; uint16_t fewest_ing;};
 using ing_vec   = std::vector<const Ingredient*>;
 using Node_Span = std::span<Product_Node>;
+using Lookup    = ankerl::unordered_dense::map<mask, entry>;
+
 class Product_Tree {
     friend struct Product_Node;
     
@@ -28,7 +30,7 @@ public:
     std::vector<Product_Node> store;
 
 private:
-    absl::flat_hash_map<mask, entry> lookup;
+    Lookup lookup;
     std::vector<size_t> n_ing_counts;
     unsigned int num_threads_;
 
