@@ -59,7 +59,7 @@ int Product::get_profit() const{
 
 Product Product::update_product(const Ingredient& ing) const {
     auto original = effect_mask;
-    bool blocked[data::max_tx_range] = {0};
+    bool blocked[data::max_tx_range]{};
     auto working = original;
 
     // Phase 1

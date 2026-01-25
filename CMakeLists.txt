@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16) # safer default than 3.10
-project(MixFinder LANGUAGES CXX)
+project(MixFinder LANGUAGES CXX C)
 
 message (STATUS "Compiler path: ${CMAKE_CXX_COMPILER}")
 message (STATUS "Compiler ID: ${CMAKE_CXX_COMPILER_ID}")
@@ -78,7 +78,7 @@ target_include_directories(${EXE_NAME}
 )
 
 target_link_libraries(${EXE_NAME}
-    PRIVATE
+    PRIVATE SYSTEM
         absl::flat_hash_map
         ftxui::component
         # Boost::container
