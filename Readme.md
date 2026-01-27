@@ -42,8 +42,11 @@ Run CMake: Select Configure Preset
 This project uses FTXUI for its GUI
 https://github.com/ArthurSonzogni/ftxui
 
-It uses abseil for the faster flat_hash_map
-https://github.com/abseil/abseil-cpp.git
+It uses ankerl for unordered_dense
+https://github.com/martinus/unordered_dense
+
+Dependencies are fetched during build. No install required.
+Builds are statically linked so binaries have no exotic dependencies at runtime.
 
 # To-do
 There are a lot of ways to improve the tool and code base. Here's what I will prioritise if I have time:
