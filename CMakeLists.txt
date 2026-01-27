@@ -11,7 +11,6 @@ if (WIN32)
         set(CMAKE_MSVC_RUNTIME_LIBRARY
             "MultiThreaded$<$<CONFIG:Debug>:Debug>"
             CACHE STRING "" FORCE)
-        set(ABSL_MSVC_STATIC_RUNTIME ON CACHE BOOL "" FORCE)
     else()
         message(STATUS "Static linking for MinGW")
         set(CMAKE_CXX_FLAGS        "${CMAKE_CXX_FLAGS}        -static -static-libgcc -static-libstdc++")
@@ -40,6 +39,7 @@ endif()
 include(FetchContent)
 
 # FTXUI
+set(FTXUI_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
 FetchContent_Declare(
     ftxui
     GIT_REPOSITORY https://github.com/ArthurSonzogni/FTXUI
@@ -47,16 +47,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(ftxui)
 
-# Abseil
+# Ankler
 FetchContent_Declare(
-    abseil
-    GIT_REPOSITORY https://github.com/abseil/abseil-cpp.git
-    GIT_TAG 20250512.1
+    unordered_dense
+    GIT_REPOSITORY https://github.com/martinus/unordered_dense
+    GIT_TAG v4.8.1
 )
-FetchContent_MakeAvailable(abseil)
-
-# Boost (commented out until needed)
-# find_package(Boost REQUIRED COMPONENTS container)
+FetchContent_MakeAvailable(unordered_dense)
 
 # ---------------------------------------------------------
 # Sources & executable
@@ -73,15 +70,14 @@ else()
 endif()
 
 target_include_directories(${EXE_NAME}
-    PRIVATE
+    PRIVATE SYSTEM
         ${CMAKE_SOURCE_DIR}/include
+        ${unordered_dense_SOURCE_DIR}/include
 )
 
 target_link_libraries(${EXE_NAME}
-    PRIVATE SYSTEM
-        absl::flat_hash_map
+    PRIVATE
         ftxui::component
-        # Boost::container
 )
 
 # ---------------------------------------------------------

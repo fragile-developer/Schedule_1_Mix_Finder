@@ -6,6 +6,7 @@
 #include <thread>
 #include <chrono>
 #include <execution>
+#include <cassert>
 
 using namespace std::views;
 using std::vector;
