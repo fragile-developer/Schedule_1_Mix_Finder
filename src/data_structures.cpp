@@ -47,7 +47,7 @@ float Product::get_mult() const{
 
 float Product::get_addiction() const{
     float addiction = 0.0;
-    for (auto effect : data::effects) {
+    for (const auto& effect : data::effects) {
         if (effect_mask & effect.mask) addiction += effect.addiction;
     }
     return addiction;
